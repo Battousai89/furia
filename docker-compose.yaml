@@ -3,10 +3,10 @@ version: "3.8"
 services:
   nginx:
     build:
-      context: _docker/nginx
+      context: _docker/nginx/
       dockerfile: Dockerfile
     ports:
-      - "80:80"
+      - "${NGINX_PORT}:80"
     volumes:
       - ./_docker/nginx/.conf:/etc/nginx/conf.d/default.conf:ro
       - ./src:/var/www/laravel
@@ -27,8 +27,11 @@ services:
       dockerfile: Dockerfile
     ports:
       - "3316:3306"
-    env_file:
-      - ./_docker/mysql/.env
+    environment:
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+        MYSQL_USER=${MYSQL_USER}
+        MYSQL_PASSWORD=${MYSQL_PASSWORD}
+        MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
     volumes:
       - db_data:/var/lib/mysql
 

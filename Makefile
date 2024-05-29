@@ -17,7 +17,7 @@ project-build:
 	@echo "${magenta}Установка зависимостей композера...${reset}"
 	@make -s composer-install
 	@echo "${magenta}Запуск миграций...${reset}"
-	@make -s artisan-migrate
+	@make -s artisan-migrate-seed
 	@echo "${magenta}Генерация ключа приложения...${reset}"
 	@make -s artisan-keygen
 	@echo "${magenta}Готово${reset}"
@@ -36,18 +36,6 @@ project-down:
 	docker-compose down -v
 	@echo "${magenta}Готово${reset}"
 
-composer-install:
-	docker-compose run --rm composer install
-
-artisan-migrate:
-	docker-compose run --rm artisan migrate
-
-artisan-rollback-migration:
-	docker-compose run --rm artisan migrate:rollback
-
-artisan-keygen:
-	docker-compose run --rm artisan key:generate
-
 project-up-windows:
 	@make -s project-up os=windows
 
@@ -59,3 +47,30 @@ project-build-windows:
 
 project-build-linux:
 	@make -s project-build os=linux
+
+composer-install:
+	docker-compose run --rm composer install
+
+artisan-migrate:
+	docker-compose run --rm artisan migrate
+
+artisan-migrate-seed:
+	docker-compose run --rm artisan migrate --seed
+
+artisan-rollback-migration:
+	docker-compose run --rm artisan migrate:rollback
+
+artisan-keygen:
+	docker-compose run --rm artisan key:generate
+
+artisan-make-test:
+	docker-compose run --rm artisan make:test $(testName)
+
+artisan-make-unit-test:
+	docker-compose run --rm artisan make:test $(testName) --unit
+
+artisan-make-pest-test:
+	docker-compose run --rm artisan make:test $(testName) --pest
+
+artisan-test:
+	docker-compose run --rm artisan test
