@@ -8,9 +8,11 @@ os=windows linux
 project-build:
 	@echo "${magenta}Загрузка и запуск контейнеров...${reset}"
 	@if [ $(os) = "linux" ]; then \
+  		mkdir ./_docker/mysql/db_data; \
   		docker-compose up --build -d nginx; \
   		cp ./src/.env.example ./src/.env; \
   	else \
+  	  	mkdir _docker\mysql\db_data; \
   	  	docker-compose up nginx --build -d; \
   	  	copy src\.env.example src\.env; \
   	fi
@@ -20,6 +22,8 @@ project-build:
 	@make -s artisan-migrate-seed
 	@echo "${magenta}Генерация ключа приложения...${reset}"
 	@make -s artisan-keygen
+	@echo "${magenta}Добавление тестовго пользователя...${reset}"
+	@make artisan-add-test-user
 	@echo "${magenta}Готово${reset}"
 
 project-up:
@@ -74,3 +78,6 @@ artisan-make-pest-test:
 
 artisan-test:
 	docker-compose run --rm artisan test
+
+artisan-add-test-user:
+	docker-compose run --rm artisan orchid:admin admin admin@admin.com password
