@@ -13,6 +13,7 @@ services:
     depends_on:
       - php
       - pgsql
+      - deno
 
   php:
     build:
@@ -34,6 +35,15 @@ services:
       - "5432:5432"
     volumes:
       - db_data:/var/lib/postgresql
+
+  deno:
+    build:
+      context: .
+      dockerfile: ./_docker/deno/Dockerfile
+    volumes:
+      - ./src:/var/www/laravel
+    ports:
+      - "1993:1993"
 
   composer:
     build:
