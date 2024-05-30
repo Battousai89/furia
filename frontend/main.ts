@@ -1,6 +1,6 @@
-import { serve } from "./deps.ts";
+import { bootstrap } from "aleph/react";
 
-const PORT = 1993;
+bootstrap();
 const s = serve(`0.0.0.0:${PORT}`);
 const body = new TextEncoder().encode("Hello World\n");
 
