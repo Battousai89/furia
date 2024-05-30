@@ -1,6 +1,6 @@
 FROM php:8.2-fpm
 
-WORKDIR /var/www/laravel
+WORKDIR /var/www/furia
 
 RUN apt-get update
 

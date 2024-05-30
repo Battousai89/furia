@@ -9,18 +9,17 @@ services:
       - "${NGINX_PORT}:80"
     volumes:
       - ./_docker/nginx/.conf:/etc/nginx/conf.d/default.conf:ro
-      - ./src:/var/www/laravel
+      - ./backend:/var/www/furia
     depends_on:
       - php
       - pgsql
-      - deno
 
   php:
     build:
       context: _docker/php
       dockerfile: Dockerfile
     volumes:
-      - ./src:/var/www/laravel
+      - ./backend:/var/www/furia
 
   pgsql:
     build:
@@ -40,24 +39,25 @@ services:
       context: .
       dockerfile: ./_docker/deno/Dockerfile
     volumes:
-      - ./src:/var/www/laravel
+      - ./frontend:/var/www/furia-front
     ports:
       - "1993:1993"
+      - "8000:8000"
 
   composer:
     build:
       context: _docker/composer
       dockerfile: Dockerfile
     volumes:
-      - ./src:/var/www/laravel
+      - ./backend:/var/www/furia
 
   artisan:
     build:
       context: _docker/php
       dockerfile: Dockerfile
     volumes:
-      - ./src:/var/www/laravel
-    entrypoint: ["php", "/var/www/laravel/artisan"]
+      - ./backend:/var/www/furia
+    entrypoint: ["php", "/var/www/furia/artisan"]
 
 volumes:
   db_data:
