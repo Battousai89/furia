@@ -26,7 +26,6 @@ services:
     build:
       context: _docker/pgsql
       dockerfile: Dockerfile
-    restart: always
     environment:
       POSTGRES_DB: ${DB_DATABASE}
       POSTGRES_USER: ${DB_USER}
@@ -34,7 +33,7 @@ services:
     ports:
       - "5432:5432"
     volumes:
-      - db_data:/var/lib/postgresql
+      - db_data:/var/lib/postgresql/data
 
   deno:
     build:
