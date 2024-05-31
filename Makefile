@@ -10,11 +10,11 @@ project-build:
 	@if [ $(os) = "linux" ]; then \
   		mkdir ./_docker/pgsql/db_data; \
   		docker-compose up --build -d nginx; \
-  		cp ./src/.env.example ./src/.env; \
+  		cp ./backend/.env.example ./backend/.env; \
   	else \
   	  	mkdir _docker\pgsql\db_data; \
   	  	docker-compose up nginx --build -d; \
-  	  	copy src\.env.example src\.env; \
+  	  	copy backend\.env.example backend\.env; \
   	fi
 	@echo "${magenta}Установка зависимостей композера...${reset}"
 	@make -s composer-install

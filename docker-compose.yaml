@@ -36,8 +36,8 @@ services:
 
   deno:
     build:
-      context: ./
-      dockerfile: ./_docker/deno/Dockerfile
+      context: _docker/deno
+      dockerfile: Dockerfile
     volumes:
       - ./frontend:/var/www/furia-front
     ports:
