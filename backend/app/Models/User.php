@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Notifications\Notifiable;
 use Orchid\Filters\Types\Like;
 use Orchid\Filters\Types\Where;
@@ -24,6 +25,11 @@ class User extends Authenticatable
         'email',
         'password',
     ];
+
+    public function projects(): HasMany
+    {
+        return $this->hasMany(Project::class, 'owner_id', 'id');
+    }
 
     /**
      * The attributes excluded from the model's JSON form.
