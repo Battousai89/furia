@@ -26,10 +26,29 @@ class User extends Authenticatable
         'password',
     ];
 
+    #region relations
+
     public function projects(): HasMany
     {
-        return $this->hasMany(Project::class, 'owner_id', 'id');
+        return $this->hasMany(Project::class);
     }
+
+    public function projectCommands(): HasMany
+    {
+        return $this->hasMany(ProjectMember::class, 'user_id');
+    }
+
+    public function posts(): HasMany
+    {
+        return $this->hasMany(ProjectPost::class);
+    }
+
+    public function comments(): HasMany
+    {
+        return $this->hasMany(PostComment::class);
+    }
+
+    #endregion
 
     /**
      * The attributes excluded from the model's JSON form.

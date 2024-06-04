@@ -14,8 +14,9 @@ use Illuminate\Support\Carbon;
  * App\Models\Project
  *
  * @property int $id
+ * @property int $project_id
  * @property int $user_id
- * @property string $name
+ * @property string $title
  * @property string $preview_text
  * @property string $description
  * @property string $preview_picture
@@ -23,18 +24,19 @@ use Illuminate\Support\Carbon;
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  *
- * @method static Builder|Project newModelQuery()
- * @method static Builder|Project newQuery()
- * @method static Builder|Project query()
- * @method static Builder|Project whereId($value)
- * @method static Builder|Project whereUserId($value)
- * @method static Builder|Project whereName($value)
- * @method static Builder|Project wherePreviewText($value)
- * @method static Builder|Project whereDescription($value)
- * @method static Builder|Project wherePreviewPicture($value)
- * @method static Builder|Project whereDetailPicture($value)
+ * @method static Builder|ProjectPost newModelQuery()
+ * @method static Builder|ProjectPost newQuery()
+ * @method static Builder|ProjectPost query()
+ * @method static Builder|ProjectPost whereId($value)
+ * @method static Builder|ProjectPost whereProjectId($value)
+ * @method static Builder|ProjectPost whereUserId($value)
+ * @method static Builder|ProjectPost whereTitle($value)
+ * @method static Builder|ProjectPost wherePreviewText($value)
+ * @method static Builder|ProjectPost whereDescription($value)
+ * @method static Builder|ProjectPost wherePreviewPicture($value)
+ * @method static Builder|ProjectPost whereDetailPicture($value)
  */
-class Project extends Model
+class ProjectPost extends Model
 {
     use HasFactory;
 
@@ -44,7 +46,7 @@ class Project extends Model
      * @var array
      */
     protected $fillable = [
-        'name',
+        'title',
         'preview_text',
         'description',
         'preview_picture',
@@ -58,24 +60,19 @@ class Project extends Model
 
     #region relations
 
-    public function owner(): BelongsTo
+    public function project(): BelongsTo
+    {
+        return $this->belongsTo(Project::class);
+    }
+
+    public function creator(): BelongsTo
     {
         return $this->belongsTo(User::class, 'user_id');
     }
 
-    public function roles(): HasMany
+    public function comments(): HasMany
     {
-        return $this->hasMany(ProjectRole::class);
-    }
-
-    public function members(): HasMany
-    {
-        return $this->hasMany(ProjectMember::class);
-    }
-
-    public function posts(): HasMany
-    {
-        return $this->hasMany(ProjectPost::class);
+        return $this->hasMany(PostComment::class);
     }
 
     #endregion

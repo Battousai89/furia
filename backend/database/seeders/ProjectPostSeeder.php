@@ -2,11 +2,10 @@
 
 namespace Database\Seeders;
 
-use App\Models\Project;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\ProjectPost;
 use Illuminate\Database\Seeder;
 
-class ProjectsSeeder extends Seeder
+class ProjectPostSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -14,7 +13,7 @@ class ProjectsSeeder extends Seeder
     public function run(): void
     {
         for ($i = 0; $i < 9; $i++) {
-            $project = Project::factory()->create();
+            $projectMember = ProjectPost::factory()->create();
         }
     }
 }
