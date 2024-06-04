@@ -33,9 +33,9 @@ class User extends Authenticatable
         return $this->hasMany(Project::class);
     }
 
-    public function projectCommands(): HasMany
+    public function projectGroups(): HasMany
     {
-        return $this->hasMany(ProjectMember::class, 'user_id');
+        return $this->hasMany(ProjectMember::class);
     }
 
     public function posts(): HasMany
@@ -46,6 +46,11 @@ class User extends Authenticatable
     public function comments(): HasMany
     {
         return $this->hasMany(PostComment::class);
+    }
+
+    public function chatGroups(): HasMany
+    {
+        return $this->hasMany(ChatMember::class);
     }
 
     #endregion

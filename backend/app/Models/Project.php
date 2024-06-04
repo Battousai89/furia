@@ -78,5 +78,10 @@ class Project extends Model
         return $this->hasMany(ProjectPost::class);
     }
 
+    public function chats(): HasMany
+    {
+        return $this->hasMany(Chat::class);
+    }
+
     #endregion
 }

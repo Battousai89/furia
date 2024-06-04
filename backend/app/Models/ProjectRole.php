@@ -15,18 +15,18 @@ use Illuminate\Support\Carbon;
  * @property int $id
  * @property int $project_id
  * @property string $name
- * @property string $create_posts
- * @property string $edit_posts
- * @property string $remove_posts
- * @property string $create_chats
- * @property string $invite_members
- * @property string $accept_members
- * @property string $remove_members
- * @property string $change_project_name
- * @property string $change_project_preview
- * @property string $change_project_description
- * @property string $change_project_preview_picture
- * @property string $change_project_detail_picture
+ * @property boolean $create_posts
+ * @property boolean $edit_posts
+ * @property boolean $remove_posts
+ * @property boolean $create_chats
+ * @property boolean $invite_members
+ * @property boolean $accept_members
+ * @property boolean $remove_members
+ * @property boolean $change_project_name
+ * @property boolean $change_project_preview
+ * @property boolean $change_project_description
+ * @property boolean $change_project_preview_picture
+ * @property boolean $change_project_detail_picture
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  *
