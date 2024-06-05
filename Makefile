@@ -37,7 +37,7 @@ project-up:
 
 project-down:
 	@echo "${magenta}Остановка и удаление контейнеров...${reset}"
-	docker-compose down -v
+	docker-compose down -v nginx php pgsql
 	@echo "${magenta}Готово${reset}"
 
 project-up-windows:
