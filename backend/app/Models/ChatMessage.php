@@ -33,7 +33,7 @@ class ChatMessage extends Model
     use HasFactory;
 
     /**
-     * The attributes that are mass assignable.
+     * Поля сущности
      *
      * @var array
      */
@@ -42,6 +42,11 @@ class ChatMessage extends Model
         'files',
     ];
 
+    /**
+     * Автозаполняемые поля
+     *
+     * @var array
+     */
     protected $casts = [
         'created_at' => 'datetime',
         'updated_at' => 'datetime'
@@ -50,11 +55,21 @@ class ChatMessage extends Model
 
     #region relations
 
+    /**
+     * Связь с чатом
+     *
+     * @return BelongsTo
+     */
     public function chat(): BelongsTo
     {
         return $this->belongsTo(Chat::class);
     }
 
+    /**
+     * Связь в сладельцем сообщения
+     *
+     * @return BelongsTo
+     */
     public function owner(): BelongsTo
     {
         return $this->belongsTo(ChatMember::class, 'chat_member_id');

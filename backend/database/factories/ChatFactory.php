@@ -17,9 +17,10 @@ class ChatFactory extends Factory
      */
     public function definition(): array
     {
+        $project = Project::factory()->create();
         return [
             'title' => fake()->sentence(),
-            'project_id' => fake()->randomElement(array_merge([null], Project::query()->pluck('id')->toArray())),
+            'project_id' => fake()->randomElement([null, $project->id]),
             'description' => fake()->text(),
             'picture' => fake()->filePath()
         ];

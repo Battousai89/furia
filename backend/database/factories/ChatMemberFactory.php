@@ -18,18 +18,20 @@ class ChatMemberFactory extends Factory
      */
     public function definition(): array
     {
+        $chat = Chat::factory()->create();
+        $user = User::factory()->create();
         return [
-            'chat_id' => fake()->randomElement(Chat::query()->pluck('id')->toArray()),
-            'user_id' => fake()->randomElement(User::query()->pluck('id')->toArray()),
-            'owner' => fake()->boolean(),
-            'write' => fake()->boolean(),
-            'react' => fake()->boolean(),
-            'audio' => fake()->boolean(),
-            'video' => fake()->boolean(),
-            'files' => fake()->boolean(),
-            'invite_members' => fake()->boolean(),
-            'accept_members' => fake()->boolean(),
-            'remove_members' => fake()->boolean()
+            'chat_id' => $chat->id,
+            'user_id' => $user->id,
+            'is_owner' => fake()->boolean(),
+            'is_can_write' => fake()->boolean(),
+            'is_can_send_react' => fake()->boolean(),
+            'is_can_send_audio' => fake()->boolean(),
+            'is_can_send_video' => fake()->boolean(),
+            'is_can_send_files' => fake()->boolean(),
+            'is_can_invite_members' => fake()->boolean(),
+            'is_can_accept_members' => fake()->boolean(),
+            'is_can_remove_members' => fake()->boolean()
         ];
     }
 }

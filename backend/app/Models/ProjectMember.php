@@ -30,6 +30,11 @@ class ProjectMember extends Model
 {
     use HasFactory;
 
+    /**
+     * Автозаполняемые поля
+     *
+     * @var array
+     */
     protected $casts = [
         'created_at' => 'datetime',
         'updated_at' => 'datetime'
@@ -37,16 +42,31 @@ class ProjectMember extends Model
 
     #region relations
 
+    /**
+     * Связь с проектом
+     *
+     * @return BelongsTo
+     */
     public function project(): BelongsTo
     {
         return $this->belongsTo(Project::class);
     }
 
+    /**
+     * Связь с пользователем
+     *
+     * @return BelongsTo
+     */
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }
 
+    /**
+     * Связь с ролью
+     *
+     * @return BelongsTo
+     */
     public function role(): BelongsTo
     {
         return $this->belongsTo(ProjectRole::class, 'project_role_id');

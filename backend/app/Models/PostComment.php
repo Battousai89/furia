@@ -34,14 +34,19 @@ class PostComment extends Model
     use HasFactory;
 
     /**
-     * The attributes that are mass assignable.
+     * Поля сущности
      *
      * @var array
      */
     protected $fillable = [
         'content',
     ];
-
+    /**
+     *
+     * Автозаполняемые поля
+     *
+     * @var array
+     */
     protected $casts = [
         'created_at' => 'datetime',
         'updated_at' => 'datetime'
@@ -49,21 +54,41 @@ class PostComment extends Model
 
     #region relations
 
+    /**
+     * Связь с постом
+     *
+     * @return BelongsTo
+     */
     public function post(): BelongsTo
     {
         return $this->belongsTo(ProjectPost::class, 'project_post_id');
     }
 
-    public function creator(): BelongsTo
+    /**
+     * Связь с автором комментария
+     *
+     * @return BelongsTo
+     */
+    public function author(): BelongsTo
     {
         return $this->belongsTo(User::class, 'user_id');
     }
 
+    /**
+     * Связь с родительским комментарием
+     *
+     * @return BelongsTo
+     */
     public function parent(): BelongsTo
     {
         return $this->belongsTo(self::class, 'post_comment_id');
     }
 
+    /**
+     * Связь с дочерними комментариями
+     *
+     * @return HasMany
+     */
     public function children(): HasMany
     {
         return $this->hasMany(self::class);

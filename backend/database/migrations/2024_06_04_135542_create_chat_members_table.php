@@ -17,15 +17,15 @@ return new class extends Migration
             $table->id();
             $table->foreignIdFor(Chat::class)->constrained()->cascadeOnDelete()->cascadeOnUpdate();
             $table->foreignIdFor(User::class)->constrained()->cascadeOnDelete()->cascadeOnUpdate();
-            $table->boolean('owner');
-            $table->boolean('write');
-            $table->boolean('react');
-            $table->boolean('audio');
-            $table->boolean('video');
-            $table->boolean('files');
-            $table->boolean('invite_members');
-            $table->boolean('accept_members');
-            $table->boolean('remove_members');
+            $table->boolean('is_owner');
+            $table->boolean('is_can_write');
+            $table->boolean('is_can_send_react');
+            $table->boolean('is_can_send_audio');
+            $table->boolean('is_can_send_video');
+            $table->boolean('is_can_send_files');
+            $table->boolean('is_can_invite_members');
+            $table->boolean('is_can_accept_members');
+            $table->boolean('is_can_remove_members');
             $table->timestamps();
         });
     }

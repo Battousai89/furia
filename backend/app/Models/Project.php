@@ -39,7 +39,7 @@ class Project extends Model
     use HasFactory;
 
     /**
-     * The attributes that are mass assignable.
+     * Поля сущности
      *
      * @var array
      */
@@ -51,6 +51,11 @@ class Project extends Model
         'detail_picture',
     ];
 
+    /**
+     * Автозаполняемые поля
+     *
+     * @var array
+     */
     protected $casts = [
         'created_at' => 'datetime',
         'updated_at' => 'datetime'
@@ -58,26 +63,51 @@ class Project extends Model
 
     #region relations
 
+    /**
+     * Связь с владельцем проекта
+     *
+     * @return BelongsTo
+     */
     public function owner(): BelongsTo
     {
         return $this->belongsTo(User::class, 'user_id');
     }
 
+    /**
+     * Связь с ролями проекта
+     *
+     * @return HasMany
+     */
     public function roles(): HasMany
     {
         return $this->hasMany(ProjectRole::class);
     }
 
+    /**
+     * Связь с участниками проекта
+     *
+     * @return HasMany
+     */
     public function members(): HasMany
     {
         return $this->hasMany(ProjectMember::class);
     }
 
+    /**
+     * Связь с постами проекта
+     *
+     * @return HasMany
+     */
     public function posts(): HasMany
     {
         return $this->hasMany(ProjectPost::class);
     }
 
+    /**
+     * Связь с чатами проекта
+     *
+     * @return HasMany
+     */
     public function chats(): HasMany
     {
         return $this->hasMany(Chat::class);

@@ -18,13 +18,19 @@ class ChatMessageFactory extends Factory
      */
     public function definition(): array
     {
+        $chat = Chat::factory()->create();
+        $chatMember = ChatMember::factory()->create();
+        $files = [];
+        for ($i = 0; $i < fake()->numberBetween(0, 19); $i++) {
+            $files[] = '"' . $i . '": "' . fake()->filePath() . '"';
+        }
+        $jsonFiles = !empty($files) ? '{' . implode(',', $files) . '}' : null;
+
         return [
-            'chat_id' => fake()->randomElement(Chat::query()->pluck('id')->toArray()),
-            'chat_member_id' => fake()->randomElement(ChatMember::query()->pluck('id')->toArray()),
+            'chat_id' => $chat->id,
+            'chat_member_id' => $chatMember->id,
             'content' => fake()->realText(),
-            'files' => '{ ' . "\n" .
-                '"0": "' . fake()->filePath() . '",' . "\n" .
-                '"1": "' . fake()->filePath() . '"}',
+            'files' => $jsonFiles
         ];
     }
 }

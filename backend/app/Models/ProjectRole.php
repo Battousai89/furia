@@ -15,18 +15,18 @@ use Illuminate\Support\Carbon;
  * @property int $id
  * @property int $project_id
  * @property string $name
- * @property boolean $create_posts
- * @property boolean $edit_posts
- * @property boolean $remove_posts
- * @property boolean $create_chats
- * @property boolean $invite_members
- * @property boolean $accept_members
- * @property boolean $remove_members
- * @property boolean $change_project_name
- * @property boolean $change_project_preview
- * @property boolean $change_project_description
- * @property boolean $change_project_preview_picture
- * @property boolean $change_project_detail_picture
+ * @property boolean $is_can_create_posts
+ * @property boolean $is_can_edit_posts
+ * @property boolean $is_can_remove_posts
+ * @property boolean $is_can_create_chats
+ * @property boolean $is_can_invite_members
+ * @property boolean $is_can_accept_members
+ * @property boolean $is_can_remove_members
+ * @property boolean $is_can_change_project_name
+ * @property boolean $is_can_change_project_preview
+ * @property boolean $is_can_change_project_description
+ * @property boolean $is_can_change_project_preview_picture
+ * @property boolean $is_can_change_project_detail_picture
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  *
@@ -36,44 +36,49 @@ use Illuminate\Support\Carbon;
  * @method static Builder|ProjectRole whereId($value)
  * @method static Builder|ProjectRole whereProjectId($value)
  * @method static Builder|ProjectRole whereName($value)
- * @method static Builder|ProjectRole whereCreatePosts($value)
- * @method static Builder|ProjectRole whereEditPosts($value)
- * @method static Builder|ProjectRole whereRemovePosts($value)
- * @method static Builder|ProjectRole whereCreateChats($value)
- * @method static Builder|ProjectRole whereInviteMembers($value)
- * @method static Builder|ProjectRole whereAcceptMembers($value)
- * @method static Builder|ProjectRole whereRemoveMembers($value)
- * @method static Builder|ProjectRole whereChangeProjectName($value)
- * @method static Builder|ProjectRole whereChangePreview($value)
- * @method static Builder|ProjectRole whereChangeDescription($value)
- * @method static Builder|ProjectRole whereChangePreviewPicture($value)
- * @method static Builder|ProjectRole whereChangeDetailPicture($value)
+ * @method static Builder|ProjectRole whereIsCanCreatePosts($value)
+ * @method static Builder|ProjectRole whereIsCanEditPosts($value)
+ * @method static Builder|ProjectRole whereIsCanRemovePosts($value)
+ * @method static Builder|ProjectRole whereIsCanCreateChats($value)
+ * @method static Builder|ProjectRole whereIsCanInviteMembers($value)
+ * @method static Builder|ProjectRole whereIsCanAcceptMembers($value)
+ * @method static Builder|ProjectRole whereIsCanRemoveMembers($value)
+ * @method static Builder|ProjectRole whereIsCanChangeProjectName($value)
+ * @method static Builder|ProjectRole whereIsCanChangePreview($value)
+ * @method static Builder|ProjectRole whereIsCanChangeDescription($value)
+ * @method static Builder|ProjectRole whereIsCanChangePreviewPicture($value)
+ * @method static Builder|ProjectRole whereIsCanChangeDetailPicture($value)
  */
 class ProjectRole extends Model
 {
     use HasFactory;
 
     /**
-     * The attributes that are mass assignable.
+     * Поля сущности
      *
      * @var array
      */
     protected $fillable = [
         'name',
-        'create_posts',
-        'edit_posts',
-        'remove_posts',
-        'create_chats',
-        'invite_members',
-        'accept_members',
-        'remove_members',
-        'change_project_name',
-        'change_project_preview',
-        'change_project_description',
-        'change_project_preview_picture',
-        'change_project_detail_picture'
+        'is_can_create_posts',
+        'is_can_edit_posts',
+        'is_can_remove_posts',
+        'is_can_create_chats',
+        'is_can_invite_members',
+        'is_can_accept_members',
+        'is_can_remove_members',
+        'is_can_change_project_name',
+        'is_can_change_project_preview',
+        'is_can_change_project_description',
+        'is_can_change_project_preview_picture',
+        'is_can_change_project_detail_picture'
     ];
 
+    /**
+     * Автозаполняемые поля
+     *
+     * @var array
+     */
     protected $casts = [
         'created_at' => 'datetime',
         'updated_at' => 'datetime'
@@ -81,11 +86,21 @@ class ProjectRole extends Model
 
     #region relations
 
+    /**
+     * Связь с проектом
+     *
+     * @return BelongsTo
+     */
     public function project(): BelongsTo
     {
         return $this->belongsTo(Project::class);
     }
 
+    /**
+     * Свящь с участниками проекта
+     *
+     * @return HasMany
+     */
     public function members(): HasMany
     {
         return $this->hasMany(ProjectMember::class, 'project_role_id');

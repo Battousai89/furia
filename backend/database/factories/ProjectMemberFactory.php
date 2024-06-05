@@ -19,10 +19,13 @@ class ProjectMemberFactory extends Factory
      */
     public function definition(): array
     {
+        $project = Project::factory()->create();
+        $user = User::factory()->create();
+        $role = ProjectRole::factory()->create();
         return [
-            'project_id' => fake()->randomElement(Project::query()->pluck('id')->toArray()),
-            'user_id' => fake()->randomElement(User::query()->pluck('id')->toArray()),
-            'project_role_id' => fake()->randomElement(ProjectRole::query()->pluck('id')->toArray())
+            'project_id' => $project->id,
+            'user_id' => $user->id,
+            'project_role_id' => fake()->randomElement([null, $role->id])
         ];
     }
 }

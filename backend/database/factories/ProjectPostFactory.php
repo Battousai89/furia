@@ -18,9 +18,11 @@ class ProjectPostFactory extends Factory
      */
     public function definition(): array
     {
+        $project = Project::factory()->create();
+        $user = User::factory()->create();
         return [
-            'project_id' => fake()->randomElement(Project::query()->pluck('id')->toArray()),
-            'user_id' => fake()->randomElement(User::query()->pluck('id')->toArray()),
+            'project_id' => $project->id,
+            'user_id' => $user->id,
             'title' => fake()->sentence(),
             'preview_text' => fake()->text(),
             'description' => fake()->text(),

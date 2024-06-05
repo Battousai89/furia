@@ -17,21 +17,22 @@ class ProjectRoleFactory extends Factory
      */
     public function definition(): array
     {
+        $project = Project::factory()->create();
         return [
             'name' => fake()->name(),
-            'project_id' => fake()->randomElement(Project::query()->pluck('id')->toArray()),
-            'create_posts' => fake()->boolean(),
-            'edit_posts' => fake()->boolean(),
-            'remove_posts' => fake()->boolean(),
-            'create_chats' => fake()->boolean(),
-            'invite_members' => fake()->boolean(),
-            'accept_members' => fake()->boolean(),
-            'remove_members' => fake()->boolean(),
-            'change_project_name' => fake()->boolean(),
-            'change_project_preview' => fake()->boolean(),
-            'change_project_description' => fake()->boolean(),
-            'change_project_preview_picture' => fake()->boolean(),
-            'change_project_detail_picture' => fake()->boolean()
+            'project_id' => $project->id,
+            'is_can_create_posts' => fake()->boolean(),
+            'is_can_edit_posts' => fake()->boolean(),
+            'is_can_remove_posts' => fake()->boolean(),
+            'is_can_create_chats' => fake()->boolean(),
+            'is_can_invite_members' => fake()->boolean(),
+            'is_can_accept_members' => fake()->boolean(),
+            'is_can_remove_members' => fake()->boolean(),
+            'is_can_change_project_name' => fake()->boolean(),
+            'is_can_change_project_preview' => fake()->boolean(),
+            'is_can_change_project_description' => fake()->boolean(),
+            'is_can_change_project_preview_picture' => fake()->boolean(),
+            'is_can_change_project_detail_picture' => fake()->boolean()
         ];
     }
 }

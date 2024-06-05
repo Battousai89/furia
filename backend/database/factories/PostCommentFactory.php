@@ -19,11 +19,14 @@ class PostCommentFactory extends Factory
      */
     public function definition(): array
     {
+        $post = ProjectPost::factory()->create();
+        $postComments = PostComment::query()->pluck('id')->toArray();
+        $user = User::factory()->create();
         return [
-            'project_post_id' => fake()->randomElement(ProjectPost::query()->pluck('id')->toArray()),
-            'user_id' => fake()->randomElement(User::query()->pluck('id')->toArray()),
+            'project_post_id' => $post->id,
+            'user_id' => $user->id,
             'content' => fake()->text(),
-            'post_comment_id' => fake()->randomElement(PostComment::query()->pluck('id')->toArray()),
+            'post_comment_id' => fake()->randomElement([null, ...$postComments]),
         ];
     }
 }

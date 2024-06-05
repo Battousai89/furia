@@ -18,7 +18,7 @@ return new class extends Migration
             $table->foreignIdfor(Chat::class)->constrained()->cascadeOnDelete()->cascadeOnUpdate();
             $table->foreignIdfor(ChatMember::class)->nullable()->constrained()->nullOnDelete()->cascadeOnUpdate();
             $table->text('content');
-            $table->json('files');
+            $table->json('files')->nullable();
             $table->timestamps();
         });
     }

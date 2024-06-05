@@ -41,7 +41,7 @@ class ProjectPost extends Model
     use HasFactory;
 
     /**
-     * The attributes that are mass assignable.
+     * Поля сущности
      *
      * @var array
      */
@@ -53,6 +53,11 @@ class ProjectPost extends Model
         'detail_picture',
     ];
 
+    /**
+     * Автозаполняемые поля
+     *
+     * @var array
+     */
     protected $casts = [
         'created_at' => 'datetime',
         'updated_at' => 'datetime'
@@ -60,16 +65,31 @@ class ProjectPost extends Model
 
     #region relations
 
+    /**
+     * Связь с проектом
+     *
+     * @return BelongsTo
+     */
     public function project(): BelongsTo
     {
         return $this->belongsTo(Project::class);
     }
 
-    public function creator(): BelongsTo
+    /**
+     * Связь с автором поста
+     *
+     * @return BelongsTo
+     */
+    public function author(): BelongsTo
     {
         return $this->belongsTo(User::class, 'user_id');
     }
 
+    /**
+     * Связь с комментариями поста
+     *
+     * @return HasMany
+     */
     public function comments(): HasMany
     {
         return $this->hasMany(PostComment::class);
