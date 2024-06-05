@@ -8,6 +8,15 @@ use App\Models\User;
 class UsersTest extends TestCase
 {
     /**
+     * Очищает таблицу и выполняет миграции
+     * @return void
+     */
+    public function testRefreshDatabase(): void
+    {
+        $this->assertNotFalse(exec('php artisan migrate:refresh'));
+    }
+
+    /**
      * Проверяет корректность создания пользователя
      * @return void
      */
