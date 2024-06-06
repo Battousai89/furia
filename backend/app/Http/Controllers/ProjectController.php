@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\DTO\UserDTO;
-use App\Services\UserService;
+use App\DTO\ProjectDTO;
+use App\Services\ProjectService;
 use Illuminate\Http\Request;
 
-class UserController extends Controller
+class ProjectController extends Controller
 {
     public function __construct(
-        private readonly UserService $userService
+        private readonly ProjectService $projectService
     ) {
     }
 
@@ -18,7 +18,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        return $this->userService->all();
+        return $this->projectService->all();
     }
 
 
@@ -27,8 +27,8 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        $userDTO = new UserDTO($request->toArray());
-        return $this->userService->create($userDTO);
+        $projectDTO = new ProjectDTO($request->toArray());
+        return $this->projectService->create($projectDTO);
     }
 
     /**
@@ -36,7 +36,7 @@ class UserController extends Controller
      */
     public function show(string $id)
     {
-        return $this->userService->getById($id);
+        return $this->projectService->getById($id);
     }
 
     /**
@@ -44,8 +44,8 @@ class UserController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $userDTO = new UserDTO($request->toArray());
-        return $this->userService->update($userDTO, $id);
+        $projectDTO = new ProjectDTO($request->toArray());
+        return $this->projectService->update($projectDTO, $id);
     }
 
     /**
@@ -53,6 +53,6 @@ class UserController extends Controller
      */
     public function destroy(string $id)
     {
-        return $this->userService->delete($id);
+        return $this->projectService->delete($id);
     }
 }

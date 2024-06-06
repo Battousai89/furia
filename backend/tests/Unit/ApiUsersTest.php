@@ -2,14 +2,14 @@
 
 namespace Tests\Unit;
 
+use App\Models\Project;
 use App\Models\User;
 use Illuminate\Support\Str;
 use Tests\TestCase;
 
-class ApiTest extends TestCase
+class ApiUsersTest extends TestCase
 {
     private string $uri = '/api/';
-
 
     public function testGetUsers(): void
     {
