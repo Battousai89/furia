@@ -16,7 +16,7 @@ use Illuminate\Support\Carbon;
  * @property int $project_post_id
  * @property int $user_id
  * @property string $content
- * @property int $post_comment_id
+ * @property ?int $post_comment_id
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  *

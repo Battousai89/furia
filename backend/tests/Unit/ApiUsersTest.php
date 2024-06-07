@@ -2,35 +2,25 @@
 
 namespace Tests\Unit;
 
-use App\Models\Project;
 use App\Models\User;
 use Illuminate\Support\Str;
 use Tests\TestCase;
 
 class ApiUsersTest extends TestCase
 {
-    private string $uri = '/api/';
+    private string $uri = '/api/users/';
 
     public function testGetUsers(): void
     {
-        $response = $this->get($this->uri . 'users');
+        $response = $this->get($this->uri);
         $users = User::all()->toJson();
         $content = $response->content();
         $this->assertJsonStringEqualsJsonString($users, $content);
     }
 
-    public function testGetUserById(): void
-    {
-        $user = User::factory()->create();
-        $response = $this->get($this->uri . 'users/' . $user->id);
-        $content = $response->content();
-        $user->toJson();
-        $this->assertJsonStringEqualsJsonString($user, $content);
-    }
-
     public function testCreateUser(): void
     {
-        $response = $this->post($this->uri . 'users', [
+        $response = $this->post($this->uri, [
             'name' => 'Test User',
             'email' => 'test@test.com',
             'email_verified_at' => null,
@@ -44,12 +34,21 @@ class ApiUsersTest extends TestCase
         $this->assertJsonStringEqualsJsonString($user->toJson(), $content);
     }
 
+    public function testGetUserById(): void
+    {
+        $user = User::factory()->create();
+        $response = $this->get($this->uri . $user->id);
+        $content = $response->content();
+        $user->toJson();
+        $this->assertJsonStringEqualsJsonString($user, $content);
+    }
+
     public function testUpdateUser(): void
     {
         $user = User::factory()->create([
             'name' => 'Test User',
         ]);
-        $response = $this->put($this->uri . 'users/' . $user->id, [
+        $response = $this->put($this->uri  . $user->id, [
             'name' => 'User Test',
             'email' => $user->email,
             'email_verified_at' => $user->email_verified_at,
@@ -65,7 +64,7 @@ class ApiUsersTest extends TestCase
     public function testDeleteUser(): void
     {
         $user = User::factory()->create();
-        $response = $this->delete($this->uri . 'users/' . $user->id);
+        $response = $this->delete($this->uri . $user->id);
         $response->assertStatus(200);
 
         $user = User::whereId($user->id)->first();

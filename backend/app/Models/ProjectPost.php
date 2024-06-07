@@ -19,8 +19,8 @@ use Illuminate\Support\Carbon;
  * @property string $title
  * @property string $preview_text
  * @property string $description
- * @property string $preview_picture
- * @property string $detail_picture
+ * @property ?string $preview_picture
+ * @property ?string $detail_picture
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  *

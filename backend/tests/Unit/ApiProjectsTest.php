@@ -4,35 +4,24 @@ namespace Tests\Unit;
 
 use App\Models\Project;
 use App\Models\User;
-use Illuminate\Support\Str;
 use Tests\TestCase;
 
 class ApiProjectsTest extends TestCase
 {
-    private string $uri = '/api/';
+    private string $uri = '/api/projects/';
 
-    //PROJECTS
     public function testGetProjects(): void
     {
-        $response = $this->get($this->uri . 'projects');
-        $users = Project::all()->toJson();
+        $response = $this->get($this->uri);
+        $projects = Project::all()->toJson();
         $content = $response->content();
-        $this->assertJsonStringEqualsJsonString($users, $content);
-    }
-
-    public function testGetProjectById(): void
-    {
-        $project = Project::factory()->create();
-        $response = $this->get($this->uri . 'projects/' . $project->id);
-        $content = $response->content();
-        $project->toJson();
-        $this->assertJsonStringEqualsJsonString($project, $content);
+        $this->assertJsonStringEqualsJsonString($projects, $content);
     }
 
     public function testCreateProject(): void
     {
         $user = User::factory()->create();
-        $response = $this->post($this->uri . 'projects', [
+        $response = $this->post($this->uri, [
             'name' => 'Test Project',
             'user_id' => $user->id,
             'preview_text' => 'test_preview_text',
@@ -46,13 +35,22 @@ class ApiProjectsTest extends TestCase
         $this->assertJsonStringEqualsJsonString($project->toJson(), $content);
     }
 
+    public function testGetProjectById(): void
+    {
+        $project = Project::factory()->create();
+        $response = $this->get($this->uri . $project->id);
+        $content = $response->content();
+        $project->toJson();
+        $this->assertJsonStringEqualsJsonString($project, $content);
+    }
+
     public function testUpdateProject(): void
     {
         $project = Project::factory()->create([
             'name' => 'Test Project',
             'user_id' => null
         ]);
-        $response = $this->put($this->uri . 'projects/' . $project->id, [
+        $response = $this->put($this->uri . $project->id, [
             'name' => 'Project Test',
             'user_id' => null,
             'preview_text' => 'test_preview_text',
@@ -69,7 +67,7 @@ class ApiProjectsTest extends TestCase
     public function testDeleteProject(): void
     {
         $project = Project::factory()->create();
-        $response = $this->delete($this->uri . 'projects/' . $project->id);
+        $response = $this->delete($this->uri . $project->id);
         $response->assertStatus(200);
 
         $project = Project::whereId($project->id)->first();

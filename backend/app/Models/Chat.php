@@ -13,10 +13,10 @@ use Illuminate\Support\Carbon;
  * App\Models\Chat
  *
  * @property int $id
- * @property int $project_id
+ * @property ?int $project_id
  * @property string $title
- * @property string $description
- * @property string $picture
+ * @property ?string $description
+ * @property ?string $picture
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  *

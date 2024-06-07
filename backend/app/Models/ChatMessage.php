@@ -15,7 +15,7 @@ use Illuminate\Support\Carbon;
  * @property int $chat_id
  * @property int $chat_member_id
  * @property string $content
- * @property string $files
+ * @property ?string $files
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  *

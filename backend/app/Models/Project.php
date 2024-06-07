@@ -14,12 +14,12 @@ use Illuminate\Support\Carbon;
  * App\Models\Project
  *
  * @property int $id
- * @property int $user_id
+ * @property ?int $user_id
  * @property string $name
  * @property string $preview_text
  * @property string $description
- * @property string $preview_picture
- * @property string $detail_picture
+ * @property ?string $preview_picture
+ * @property ?string $detail_picture
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  *

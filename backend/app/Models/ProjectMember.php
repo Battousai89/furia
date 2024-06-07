@@ -14,7 +14,7 @@ use Illuminate\Support\Carbon;
  * @property int $id
  * @property int $project_id
  * @property int $user_id
- * @property int $project_role_id
+ * @property ?int $project_role_id
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  *
@@ -29,6 +29,12 @@ use Illuminate\Support\Carbon;
 class ProjectMember extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'project_id',
+        'user_id',
+        'project_role_id'
+    ];
 
     /**
      * Автозаполняемые поля
