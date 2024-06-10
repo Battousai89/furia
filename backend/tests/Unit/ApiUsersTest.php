@@ -48,7 +48,7 @@ class ApiUsersTest extends TestCase
         $user = User::factory()->create([
             'name' => 'Test User',
         ]);
-        $response = $this->put($this->uri  . $user->id, [
+        $response = $this->put($this->uri . $user->id, [
             'name' => 'User Test',
             'email' => $user->email,
             'email_verified_at' => $user->email_verified_at,

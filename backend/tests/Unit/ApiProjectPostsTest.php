@@ -9,14 +9,14 @@ use Tests\TestCase;
 
 class ApiProjectPostsTest extends TestCase
 {
-    private string $uri = '/api/projects/';
+    private string $uri = '/api/projects/posts/';
 
     public function testGetProjectPosts(): void
     {
         $project = Project::factory()->create();
         $user = User::factory()->create();
         for ($i = 0; $i < fake()->numberBetween(0, 19); $i++) {
-            $post = ProjectPost::factory()->create([
+            ProjectPost::factory()->create([
                 'project_id' => $project->id,
                 'user_id' => $user->id,
                 'title' => 'Test Title',
@@ -26,8 +26,8 @@ class ApiProjectPostsTest extends TestCase
                 'detail_picture' => fake()->randomElement([null, fake()->filePath()]),
             ]);
         }
-        $response = $this->get($this->uri . $project->id . '/posts');
-        $posts = Project::whereId($project->id)->first()->posts->toJson();
+        $response = $this->get($this->uri);
+        $posts = ProjectPost::query()->get()->toJson();
         $content = $response->content();
         $this->assertJsonStringEqualsJsonString($posts, $content);
     }
@@ -36,7 +36,7 @@ class ApiProjectPostsTest extends TestCase
     {
         $project = Project::factory()->create();
         $user = User::factory()->create();
-        $response = $this->post($this->uri . $project->id . '/posts', [
+        $response = $this->post($this->uri, [
             'project_id' => $project->id,
             'user_id' => $user->id,
             'title' => 'Test Title',
@@ -64,7 +64,7 @@ class ApiProjectPostsTest extends TestCase
             'preview_picture' => fake()->randomElement([null, fake()->filePath()]),
             'detail_picture' => fake()->randomElement([null, fake()->filePath()]),
         ]);
-        $response = $this->get($this->uri . $project->id . '/posts/' . $post->id);
+        $response = $this->get($this->uri . $post->id);
         $content = $response->content();
         $posts = Project::whereId($project->id)->first()->posts;
         $this->assertJsonStringEqualsJsonString($posts[0]->toJson(), $content);
@@ -84,7 +84,7 @@ class ApiProjectPostsTest extends TestCase
             'preview_picture' => fake()->randomElement([null, fake()->filePath()]),
             'detail_picture' => fake()->randomElement([null, fake()->filePath()]),
         ]);
-        $response = $this->put($this->uri . $project->id . '/posts/' . $post->id, [
+        $response = $this->put($this->uri . $post->id, [
             'project_id' => $project->id,
             'title' => 'Title Test',
             'preview_text' => 'Test preview',
@@ -98,15 +98,14 @@ class ApiProjectPostsTest extends TestCase
         $this->assertEquals('Title Test', $post->title);
     }
 
-   public function testDeleteProjectPost(): void
-   {
-       $project = Project::factory()->create();
-       $post = ProjectPost::factory()->create();
+    public function testDeleteProjectPost(): void
+    {
+        $post = ProjectPost::factory()->create();
 
-       $response = $this->delete($this->uri . $project->id . '/posts/' . $post->id);
-       $response->assertStatus(200);
+        $response = $this->delete($this->uri . $post->id);
+        $response->assertStatus(200);
 
-       $post = ProjectPost::whereId($post->id)->first();
-       $this->assertNull($post);
-   }
+        $post = ProjectPost::whereId($post->id)->first();
+        $this->assertNull($post);
+    }
 }

@@ -8,13 +8,9 @@ use Spatie\DataTransferObject\DataTransferObject;
 
 class ProjectMemberDTO extends DataTransferObject
 {
-    #[MapFrom('project_id')]
-    #[MapTo('project_id')]
-    public ?int $projectId;
-
     #[MapFrom('user_id')]
     #[MapTo('user_id')]
-    public ?int $userId;
+    public int $userId;
 
     #[MapFrom('project_role_id')]
     #[MapTo('project_role_id')]

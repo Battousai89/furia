@@ -19,11 +19,9 @@ class ProjectMemberFactory extends Factory
      */
     public function definition(): array
     {
-        $project = Project::factory()->create();
         $user = User::factory()->create();
         $role = ProjectRole::factory()->create();
         return [
-            'project_id' => $project->id,
             'user_id' => $user->id,
             'project_role_id' => fake()->randomElement([null, $role->id])
         ];

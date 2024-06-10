@@ -12,7 +12,6 @@ use Illuminate\Support\Carbon;
  * App\Models\ProjectMember
  *
  * @property int $id
- * @property int $project_id
  * @property int $user_id
  * @property ?int $project_role_id
  * @property Carbon|null $created_at
@@ -23,7 +22,6 @@ use Illuminate\Support\Carbon;
  * @method static Builder|ProjectMember query()
  * @method static Builder|ProjectMember whereId($value)
  * @method static Builder|ProjectMember whereUserId($value)
- * @method static Builder|ProjectMember whereProjectId($value)
  * @method static Builder|ProjectMember whereProjectRoleId($value)
  */
 class ProjectMember extends Model
@@ -31,7 +29,6 @@ class ProjectMember extends Model
     use HasFactory;
 
     protected $fillable = [
-        'project_id',
         'user_id',
         'project_role_id'
     ];
